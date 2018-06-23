@@ -100,9 +100,12 @@
     " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
+    set mouse=r                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
+    set ai
+    set nu
+    set noswapfile
 
     if has('clipboard')
         if has('unnamedplus')  " When possible use + register for copy-paste
@@ -229,7 +232,7 @@
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
-    set foldenable                  " Auto fold code
+    set nofoldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
@@ -239,6 +242,7 @@
 
     set nowrap                      " Do not wrap long lines
     set autoindent                  " Indent at the same level of the previous line
+    set smartindent
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
     set tabstop=4                   " An indentation every four columns
@@ -474,6 +478,8 @@
             au FileType go nmap <leader>r <Plug>(go-run)
             au FileType go nmap <leader>b <Plug>(go-build)
             au FileType go nmap <leader>t <Plug>(go-test)
+            au FileType go nmap <Leader>d <Plug>(go-def)
+            au FileType go nmap <Leader>dp <Plug>(go-def-pop)
             au FileType go nmap <Leader>gd <Plug>(go-doc)
             au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
             au FileType go nmap <leader>co <Plug>(go-coverage)
@@ -586,6 +592,9 @@
             let NERDTreeShowHidden=1
             let NERDTreeKeepTreeInNewTab=1
             let g:nerdtree_tabs_open_on_gui_startup=0
+
+            autocmd VimEnter * NERDTree
+            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
         endif
     " }
 
