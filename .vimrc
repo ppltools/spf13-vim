@@ -80,7 +80,7 @@
     " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
+    set mouse=r                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
@@ -212,6 +212,9 @@
     set foldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set autoindent
+    set copyindent
+    set noswapfile
 
 " }
 
@@ -421,6 +424,28 @@
 " }
 
 " Plugins {
+
+    "Golang {
+        if count(g:spf13_bundle_groups, 'go')
+            let g:go_highlight_functions = 1
+            let g:go_highlight_methods = 1
+            let g:go_highlight_structs = 1
+            let g:go_highlight_operators = 1
+            let g:go_highlight_build_constraints = 1
+            let g:go_fmt_command = "goimports"
+            let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+            let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['go']}
+            au FileType go nmap <Leader>s <Plug>(go-implements)
+            au FileType go nmap <Leader>i <Plug>(go-info)
+            au FileType go nmap <Leader>e <Plug>(go-rename)
+            au FileType go nmap <Leader>r <Plug>(go-run)
+            au FileType go nmap <Leader>b <Plug>(go-build)
+            au FileType go nmap <Leader>t <Plug>(go-test)
+            au FileType go nmap <Leader>d <Plug>(go-def)
+            au FileType go nmap <Leader>dp <Plug>(go-def-pop)
+            au FileType go nmap <Leader>co <Plug>(go-coverage)
+        endif
+    "}
 
     " TextObj Sentence {
         if count(g:spf13_bundle_groups, 'writing')
