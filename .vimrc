@@ -238,6 +238,7 @@
     set autoindent
     set copyindent
     set noswapfile
+    set foldlevel=99
 
 " }
 
